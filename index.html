@@ -53,26 +53,42 @@
 		let eboton1=false,eboton2=false;
 		
 		    boton_open.addEventListener('click', openClick);
+			boton_close.addEventListener('click',closeClick);
 
 			function openClick() 
 			{
-        		modelo3d.setAttribute('animation-mixer','clip: Anim;timeScale: 0.3;');
+				if(eboton2===true)
+				{
+				boton_close.addEventListener('click',closeClick);
+				eboton2=false;
+				}
+				else
+				{
+				modelo3d.setAttribute('animation-mixer','clip: Anim;timeScale: 0.3;');
 				setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
 				boton_open.removeEventListener('click',openClick);
 				eboton1=true;
+				}
    			}
-
-			boton_close.addEventListener('click',closeClick);
 						
 			function closeClick() 
 			{
+				if(eboton1===true)
+				{
+				boton_open.addEventListener('click',openClick);
+				eboton1=false;
+				}
+				else
+				{
 				modelo3d.setAttribute('animation-mixer','clip: Anim_reverse;timeScale: 0.3;');
 				setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
 				boton_close.removeEventListener('click',closeClick);
-				eboton2=true;	
+				eboton2=true;
+				}
     		}
 	</script>
 </html>
+
 
 
 

@@ -31,7 +31,7 @@
     </a-plane>-->
 		
 	<!-- Camera -->
-	    <a-entity id="cameraview" position="0 0 6" rotation="0 0 90"><!--look-controls-enabled="false"-->
+	    <a-entity id="cameraview" position="0 0 6" rotation="0 0 90" look-controls-enabled="false"><!--look-controls-enabled="false"-->
 		<a-camera id="mcamera" rotation="0 0 0">
   		<a-entity cursor="fuse: true; fuseTimeout: 500"
             	position="0 0 -3"
@@ -48,12 +48,13 @@
 		let boton_play= document.getElementById("boton1");
 		
 		    boton_play.addEventListener('click', function() {
-			modelo3d.setAttribute('animation-mixer','timeScale: 0.1;');
+			modelo3d.setAttribute('animation-mixer','timeScale: 0.3;');
 			//modelo3d.setAttribute('animation-mixer','clip: Anim; timeScale: 0.1;');
 			//setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },1000);/*retardo de 1000ms*/
     });
 	</script>
 </html>
+
 
 
 

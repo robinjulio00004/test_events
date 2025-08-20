@@ -63,7 +63,7 @@
 			//boton_close.addEventListener('click',function());
 			modelo3d.setAttribute('animation-mixer','clip: Anim;timeScale: 0.3;');
 			setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
-			boton_close.removeEventListener('click',function());
+			boton_close.removeEventListener('click',function(){});
 			eboton1=true;
 			//}
     });
@@ -79,13 +79,14 @@
 				//boton_open.addEventListener('click',function());
 				modelo3d.setAttribute('animation-mixer','clip: Anim_reverse;timeScale: 0.3;');
 				setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
-				boton_open.removeEventListener('click',function());
+				boton_open.removeEventListener('click',function(){});
 				eboton2=true;	
 			//}
 
     });
 	</script>
 </html>
+
 
 
 

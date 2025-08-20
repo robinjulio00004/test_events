@@ -9,8 +9,6 @@
     	<script src="aframe-ar.js"></script>
 		<script src="animation-mixer.js"></script>
 		<script src="aframe-extras.js"></script>
-		<!--<script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>-->
-		<!--<link rel="stylesheet" href="styles.css">-->
 	</head>
 <body style="margin : 0px; overflow: hidden;">		 
 	<!-- Scene -->
@@ -21,15 +19,12 @@
   	</a-assets>
 		
 	<a-entity id="modelo1" gltf-model="#modelo3d" position="0 0 0" rotation="90 0 90" scale="0.5 0.5 0.5"
-		animation-mixer="clip: *;timeScale:0;" //"clip: Anim; timeScale:0;">
+		animation-mixer="clip: Anim;timeScale:0;" //"clip: Anim; timeScale:0;">
 	</a-entity>
 		
 	<a-box id="boton1" position="0.5 0 0" scale="0.5 0.5 0.1" color="red">
-	<a-text value="Botón Play" align="center" position="0 0 0.1" color="white"></a-text>
+	<a-text value="Botón Play" align="center" position="0.01 0.01 0.01" color="white" geometry="primitive:plane"></a-text>
 	</a-box>
-	    <!--<a-box cursor-listener position="-0.5 0 0">
-      <a-entity animation="property: position; to: 0 2 -5; dur: 2000; easing: easeInOutQuad"></a-entity>
-    </a-box>-->
 
 	    <!--<a-plane position="0 1 -3" width="1" height="0.5" color="blue">
         <a-text value="Click Me!" align="center" position="0 0 0.01" color="white"></a-text>
@@ -53,23 +48,13 @@
 		let boton_play= document.getElementById("boton1");
 		
 		    boton_play.addEventListener('click', function() {
-			modelo3d.setAttribute('animation-mixer','clip: Anim; timeScale: 0.1;');
+			modelo3d.setAttribute('animation-mixer','timeScale: 0.1;');
+			//modelo3d.setAttribute('animation-mixer','clip: Anim; timeScale: 0.1;');
 			//setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },1000);/*retardo de 1000ms*/
     });
-
-		/*AFRAME.registerComponent('cursor-listener', {
-  init: function () {
-    var lastIndex = -1;
-    var COLORS = ['red', 'green', 'blue'];
-    this.el.addEventListener('click', function (evt) {
-      lastIndex = (lastIndex + 1) % COLORS.length;
-      this.setAttribute('material', 'color', COLORS[lastIndex]);
-      console.log('I was clicked at: ', evt.detail.intersection.point);
-    });
-  }
-});*/
 	</script>
 </html>
+
 
 
 

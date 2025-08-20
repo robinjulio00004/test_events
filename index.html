@@ -21,7 +21,7 @@
   	</a-assets>
 		
 	<a-entity id="modelo1" gltf-model="#modelo3d" position="0 0 0" rotation="90 0 90" scale="0.5 0.5 0.5"
-		animation-mixer="clip: Anim; timeScale:0;">
+		animation-mixer="clip: *;" //"clip: Anim; timeScale:0;">
 	</a-entity>
 		
 	<a-box id="boton1" position="0.5 0 0" scale="0.5 0.5 0.1" color="red">
@@ -53,7 +53,7 @@
 		let boton_play= document.getElementById("boton1");
 		
 		    boton_play.addEventListener('click', function() {
-			modelo3d.setAttribute('animation-mixer','timeScale: 0.1;');
+			modelo3d.setAttribute('animation-mixer',clip: Anim,'timeScale: 0.1;');
 			//setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },1000);/*retardo de 1000ms*/
     });
 
@@ -70,6 +70,7 @@
 });
 	</script>
 </html>
+
 
 
 

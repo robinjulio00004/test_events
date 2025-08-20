@@ -50,19 +50,39 @@
 		let modelo3d= document.getElementById("modelo1");
 		let boton_open= document.getElementById("boton1");
 		let boton_close= document.getElementById("boton2");
+		let eboton1=false,eboton2=false;
 		
 		    boton_open.addEventListener('click', function() {
+			if(eboton1===true)
+			{
+				boton_open.removeEventListener('click',function());
+			}
+			else
+			{
+			boton_close.addEventListener('click',function());
 			modelo3d.setAttribute('animation-mixer','clip: Anim;timeScale: 0.3;');
 			setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
+			eboton1=true;
+			}
     });
 
 			boton_close.addEventListener('click', function() {
-			modelo3d.setAttribute('animation-mixer','clip: Anim_reverse;timeScale: 0.3;');
-			setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
-			//modelo3d.setAttribute('animation-mixer','clip: Anim;setTime: 0;');
+			if(eboton2===true)
+			{
+				boton_close.removeEventListener('click',function());
+			}
+			else
+			{
+				boton_open.addEventListener('click',function());
+				modelo3d.setAttribute('animation-mixer','clip: Anim_reverse;timeScale: 0.3;');
+				setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
+				eboton2=true;	
+			}
+
     });
 	</script>
 </html>
+
 
 
 

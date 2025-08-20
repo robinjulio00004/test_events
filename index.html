@@ -7,77 +7,32 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
     	<script src="aframe-v1.6.0.min.js"></script>
     	<script src="aframe-ar.js"></script>
-		<link rel="stylesheet" href="styles.css">
+		<!--<link rel="stylesheet" href="styles.css">-->
 	</head>
-<body>
-	<!-- Canvas -->
-	<canvas id="micanvas"></canvas>
-	<!-- Botones -->
-	<div id="botones">
-        <input id="button1" type="submit" class="button" value="Restablecer" onClick="restablecer()"> <!-- restablecer valores-->
-		<input id="button2" type="submit" class="button" value="Hta OFF" onClick="function_hta()"> <!-- herramienta-->
-		<input id="button3" type="submit" class="button" value="Absolutas" onClick="coordenadas()"> <!-- Sist. coordenadas-->
-    </div>
-	<!-- Valores de salida -->
-	<div class="fmsg">
-	<div id="sistema">
-	<p>Sistema <span id="ctexto">Absoluto</span></p>
-	</div>
- 	 <div>
-	<p>Coord. abs. X: <span id="cx">&nbsp;</span></p>
-	 </div>
-	 <div>
-	<p>Coord. abs. Y: <span id="cy"></span></p>
-	 </div>
-	</div>
- 	 <div id="mcode">
-	<p>%<br>;Muestra de programa en código G y M<br><br>O0001</p>
-	<p id="clineas"></p>
-	 </div>
-		 
+<body>		 
 	<!-- Scene -->
 	<a-scene arjs embedded renderer="logarithmicDepthBuffer: true;" xr-mode-ui="enabled: true">
 	<!-- Asset Management -->	
 	<a-assets>
-	<img id="img1" src="coord_sist.png">
-	<img id="img2" src="cero_pieza.png">
-	<img id="img3" src="signo.png">
-    <a-asset-item id="tool" src="cortador.glb"></a-asset-item>
+    <a-asset-item id="modelo3d" src="puerta.glb"></a-asset-item>
   	</a-assets>
 
-	<a-image src="#img1" position="0 0.5 0" rotation="0 0 -90" width="3" height="2.3"></a-image>
-	<a-image src="#img2" position="0 0.5 0" rotation="0 0 -90" width="0.25" height="0.25"></a-image>
-	<a-entity gltf-model="#tool" position="0 0.5 0" rotation="90 0 0" scale="1.5 1.5 1.5" touch-move>
-	<a-entity id="alerta" visible="false">
-	<a-image src="#img3" position="0 1.1 0" rotation="90 0 0" width="0.18" height="0.18"></a-image>
-	</a-entity>
+	<a-entity gltf-model="#modelo3d" position="0 0.5 0" rotation="90 0 0" scale="1.5 1.5 1.5" touch-move>
 	</a-entity>
 		
 	<!-- Camera -->
-	<a-entity camera position="0 0 6" look-controls-enabled="false"></a-entity>
-	</a-scene>
+		<a-camera></a-camera>
+	<!--<a-entity camera position="0 0 6" look-controls-enabled="false"></a-entity>
+	</a-scene>-->
 </body>
 	<script>
-			let i=1,j=0,coordx=0,coordy=0,icoordx=0,icoordy=0,dx=158,dy=59,fescalax=6.6,fescalay=22,canvx=0,canvy=0,eimg=false;
-		    let etool=false,hta=false,esist=false,isist=false,asist=false,sist=false,stexto = new Array(),scoord = [0,0,0,0];
-			const canvas = document.getElementById("micanvas");
-			const ctx = canvas.getContext("2d");	
-			ctx.beginPath();
-			ctx.moveTo(dx,dy);
-			stexto[0]= "N10 G00 G21 G90 G54 X0. Y0. Z1.<br>";
-			document.getElementById("clineas").innerHTML = stexto[0];
+			let coordx=0,coordy=0;
+	
 		    AFRAME.registerComponent('touch-move', {
         		init: function () {
           	this.el.sceneEl.addEventListener('touchmove', this.onTouchMove.bind(this));
 			this.el.sceneEl.addEventListener('touchend', this.onTouchEnd.bind(this));
         },
-				tick: function () {
-    			if(etool===true)
-				{
-			this.el.object3D.position.set(0, 0.5, 0);
-			etool = false;
-				}
-  		},
         		onTouchMove: function (evt) {
 			evt.preventDefault(); // Prevent default browser behavior (e.g., scrolling)
 			const scale = 0.006;
@@ -85,182 +40,12 @@
 			var yt = (window.innerHeight/2-evt.touches[0].clientY)*scale;
 				xt=xt.toFixed(1);
 				yt=yt.toFixed(1);
-				if(xt>1.0)
-				{
-					xt=1.0;
-				}
-				else if(xt<-1.0)
-				{
-					xt=-1.0;
-				}
-				else if(yt>1.8)
-				{
-					yt=1.8;
-				}
-				else if(yt<-0.8)
-				{
-					yt=-0.8;
-				}
 				coordx=-yt+0.5;
 				coordx=coordx.toFixed(1)*5;
-				coordy=xt*5;
-			document.getElementById('cx').textContent = coordx;
-			document.getElementById('cy').textContent = coordy; 
+				coordy=xt*5; 
 					this.el.object3D.position.set(xt, yt, 0);
-        },
-				onTouchEnd: function (evt) {
-			evt.preventDefault(); // Prevent default browser behavior (e.g., scrolling)
-				if(sist===true)
-				{
-				icoordx=coordx;
-				icoordy=coordy;
-				if(j==2)
-				{
-				j=0;
-				}
-					scoord[j]=icoordx;
-					scoord[j+2]=icoordy;
-						
-				if(scoord[1]==0 && scoord[3]==0)
-				{
-					icoordx=scoord[0];
-					icoordy=scoord[2];
-				}
-				else
-				{
-					icoordx=scoord[1]-scoord[0];
-					icoordy=scoord[3]-scoord[2];
-				}
-				if(j==0 && scoord[1]!== 0 && scoord[3]!== 0)
-				{
-					icoordx=icoordx*-1;
-					icoordy=icoordy*-1;
-				}
-				j++;
-					if(isist===true)
-				{
-			stexto[i]= "N0"+((i+1)*10)+" G91 X"+icoordx+" Y"+icoordy+" <br>";
-					isist=false;
-				}
-				else
-				{
-				if(hta===true)
-				{
-			stexto[i]= "N0"+((i+1)*10)+" G01 X"+icoordx+" Y"+icoordy+" Z0. F500.<br>";
-					hta=false;
-				}
-				else
-				{
-				if(asist===true)
-				{
-			stexto[i]= "N0"+((i+1)*10)+" G90 X"+icoordx+" Y"+icoordy+" <br>";
-					asist=false;
-				}
-				else
-				{
-			stexto[i]= "N0"+((i+1)*10)+" X"+icoordx+" Y"+icoordy+" <br>";
-				}
-				}
-				}
-			stexto[i+1]="N0"+((i+2)*10)+" M30<br>%";
-			document.getElementById("clineas").innerHTML = stexto[i];
-			document.getElementById("clineas").innerHTML = stexto[i+1];
-			document.getElementById("clineas").innerHTML = stexto.join("");
-					i++;
-					ctx.lineTo(dx+coordy*fescalay,dy+coordx*fescalax);
-					ctx.lineWidth=1;
-					ctx.strokeStyle="cyan";
-					ctx.stroke();
-				}
-				else
-				{
-			if(isist===true)
-				{
-			stexto[i]= "N0"+((i+1)*10)+" G91 X"+coordx+" Y"+coordy+" <br>";
-					isist=false;
-				}
-				else
-				{
-				if(hta===true)
-				{
-			stexto[i]= "N0"+((i+1)*10)+" G01 X"+coordx+" Y"+coordy+" Z0. F500.<br>";
-					hta=false;
-				}
-				else
-				{
-				if(asist===true)
-				{
-			stexto[i]= "N0"+((i+1)*10)+" G90 X"+coordx+" Y"+coordy+" <br>";
-					asist=false;
-				}
-				else
-				{
-			stexto[i]= "N0"+((i+1)*10)+" X"+coordx+" Y"+coordy+" <br>";
-				}
-				}
-				}
-			stexto[i+1]="N0"+((i+2)*10)+" M30<br>%";
-			document.getElementById("clineas").innerHTML = stexto[i];
-			document.getElementById("clineas").innerHTML = stexto[i+1];
-			document.getElementById("clineas").innerHTML = stexto.join("");
-					i++;
-					ctx.lineTo(dx+coordy*fescalay,dy+coordx*fescalax);
-					ctx.lineWidth=1;
-					ctx.strokeStyle="cyan";
-					ctx.stroke();
-				}
-		},				
+        }				
       	});
-				function restablecer()
-			{
-				ctx.reset();
-				ctx.beginPath();
-				ctx.moveTo(dx,dy);
-				etool = true;
-				eimg=false;
-				stexto=[];
-				scoord=[0,0,0,0];
-			document.getElementById("alerta").setAttribute('visible', false);
-			document.getElementById("clineas").innerHTML = stexto;
-				stexto[0]= "N10 G00 G21 G90 G54 X0. Y0. Z1.<br>";
-				i=1;
-				j=1;
-			}
-		function function_hta()
-			{
-				hta=true;
-				eimg=!eimg;
-			if(eimg===true)
-			{
-				document.getElementById("alerta").setAttribute('visible', true);
-			}
-			else
-			{
-				document.getElementById("alerta").setAttribute('visible', false);
-			}
-			document.getElementById("button2").value="Hta ON";
-			setTimeout(()=>{document.getElementById("button2").value="Hta OFF";},1000);/*retardo de 1000ms*/
-			}
-		function coordenadas()
-			{
-				esist=!esist;
-			if(esist===true)
-			{
-			document.getElementById("ctexto").textContent = "Incremental";
-			document.getElementById("button3").value="Incrementales";
-				isist=true;
-				asist=false;
-				sist=true;
-				scoord = [0,0,0,0];
-			}
-			else
-			{
-			document.getElementById("ctexto").textContent = "Absoluto";
-			document.getElementById("button3").value="Absolutas";
-				asist=true;
-				isist=false;
-				sist=false;
-			}
-			}
 	</script>
 </html>
+

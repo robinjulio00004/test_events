@@ -52,25 +52,28 @@
 		let boton_close= document.getElementById("boton2");
 		let eboton1=false,eboton2=false;
 		
-		    boton_open.addEventListener('click', function() {
+		    boton_open.addEventListener('click', openClick);
 
-			modelo3d.setAttribute('animation-mixer','clip: Anim;timeScale: 0.3;');
-			setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
-			boton_open.removeEventListener('click',function(){});
-			eboton1=true;
+			function openClick() 
+			{
+        		modelo3d.setAttribute('animation-mixer','clip: Anim;timeScale: 0.3;');
+				setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
+				//boton_open.removeEventListener('click',function(){});
+				eboton1=true;
+   			}
 
-    });
-
-			boton_close.addEventListener('click', function() {
-
+			boton_close.addEventListener('click',closeClick);
+						
+			function closeClick() 
+			{
 				modelo3d.setAttribute('animation-mixer','clip: Anim_reverse;timeScale: 0.3;');
 				setTimeout(()=>{modelo3d.setAttribute('animation-mixer','timeScale: 0;'); },6000);/*retardo de 1000ms*/
-				boton_close.removeEventListener('click',function(){});
+				//boton_close.removeEventListener('click',function(){});
 				eboton2=true;	
-
-    });
+    		}
 	</script>
 </html>
+
 
 
 

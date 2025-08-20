@@ -18,7 +18,7 @@
     <a-asset-item id="modelo3d" src="puerta_sc.glb"></a-asset-item>
   	</a-assets>
 
-	<a-entity gltf-model="#modelo3d" position="0 0 0" rotation="90 0 0" scale="0.5 0.5 0.5" touch-move>
+	<a-entity gltf-model="#modelo3d" position="0 0 0" rotation="90 0 90" scale="0.5 0.5 0.5" touch-move>
 	</a-entity>
 		
 	<!-- Camera -->
@@ -41,14 +41,14 @@
 			var yt = (window.innerHeight/2-evt.touches[0].clientY)*scale;
 				xt=xt.toFixed(1);
 				yt=yt.toFixed(1);
-				coordx=-yt+0.5;
-				coordx=coordx.toFixed(1)*5;
-				coordy=xt*5; 
-					this.el.object3D.position.set(xt, yt, 0);
+				coordx=-yt;
+				coordy=xt; 
+					this.el.object3D.position.set(coordx,coordy, 0);
         }				
       	});
 	</script>
 </html>
+
 
 
 

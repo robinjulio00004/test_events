@@ -33,7 +33,6 @@
 		    AFRAME.registerComponent('touch-move', {
         		init: function () {
           	this.el.sceneEl.addEventListener('touchmove', this.onTouchMove.bind(this));
-			this.el.sceneEl.addEventListener('touchend', this.onTouchEnd.bind(this));
         },
         		onTouchMove: function (evt) {
 			evt.preventDefault(); // Prevent default browser behavior (e.g., scrolling)
@@ -50,6 +49,7 @@
       	});
 	</script>
 </html>
+
 
 
 

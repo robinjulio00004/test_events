@@ -9,16 +9,19 @@
     	<script src="aframe-ar.js"></script>
 		<script src="animation-mixer.js"></script>
 		<script src="aframe-extras.js"></script>
+		<script src="gesture-detector.js"></script>
+    	<script src="gesture-handler.js"></script>
 	</head>
 <body style="margin : 0px; overflow: hidden;">		 
 	<!-- Scene -->
-	<a-scene arjs embedded renderer="logarithmicDepthBuffer: true;" xr-mode-ui="enabled: true">
+	<a-scene arjs embedded renderer="logarithmicDepthBuffer: true;" xr-mode-ui="enabled: true" gesture-detector id="scene">
 	<!-- Asset Management -->	
 	<a-assets>
     <a-asset-item id="modelo3d" src="celular3d_anim.glb"></a-asset-item>
   	</a-assets>
 		
-	<a-entity id="modelo1" gltf-model="#modelo3d" position="0 0 0" rotation="0 0 90" scale="0.2 0.2 0.2"
+	<a-entity id="modelo1" class="clickable" gesture-handler="minScale: 1; maxScale: 2"
+		gltf-model="#modelo3d" position="0 0 0" rotation="0 0 90" scale="0.2 0.2 0.2"
 		animation-mixer="clip: Anim;timeScale:0;" //"clip: Anim; timeScale:0;">
 	</a-entity>
 		
@@ -88,6 +91,7 @@
     		}
 	</script>
 </html>
+
 
 
 

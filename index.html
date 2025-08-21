@@ -14,7 +14,7 @@
 	</head>
 <body style="margin : 0px; overflow: hidden;">		 
 	<!-- Scene -->
-	<a-scene arjs embedded renderer="logarithmicDepthBuffer: true;" xr-mode-ui="enabled: true" gesture-detector id="scene">
+	<a-scene arjs embedded renderer="logarithmicDepthBuffer: true;" vr-mode-ui="enabled: false" gesture-detector id="scene">
 	<!-- Asset Management -->	
 	<a-assets>
     <a-asset-item id="modelo3d" src="celular3d_anim.glb"></a-asset-item>
@@ -41,12 +41,11 @@
 		
 	<!-- Camera -->
 	    <a-entity id="cameraview" position="0 0 6" rotation="0 0 90" look-controls-enabled="false" wasd-controls-enable="false"><!--look-controls-enabled="false"-->
-		<a-camera id="mcamera" rotation="0 0 0">
-  		<a-entity cursor="fuse: true; fuseTimeout: 500"
+		<a-camera id="mcamera" rotation="0 0 0"></a-camera>
+  		<!--<a-entity cursor="fuse: true; fuseTimeout: 500"
             	position="0 0 -3"
             	geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-           	material="color: green; shader: flat"></a-entity>
-		</a-camera>
+           	material="color: green; shader: flat"></a-entity>-->
 		</a-entity>
 		</a-entity>
 		
@@ -94,6 +93,7 @@
     		}
 	</script>
 </html>
+
 
 
 
